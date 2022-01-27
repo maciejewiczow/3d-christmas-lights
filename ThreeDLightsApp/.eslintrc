@@ -37,6 +37,7 @@
     ],
     "rules": {
         "no-promise-executor-return": "warn",
+        "prettier/prettier": "off",
         "@typescript-eslint/member-delimiter-style": "warn",
         "prefer-const": "off",
         "no-autofix/prefer-const": "warn",
