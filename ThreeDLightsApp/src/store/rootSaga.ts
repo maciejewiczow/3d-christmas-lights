@@ -7,14 +7,13 @@ import {
     spawn,
     takeEvery,
 } from 'redux-saga/effects';
-import { INIT_ACTION_TYPE } from './utils';
-import * as zeroconfWatchers from './zeroconf/sagas';
+import { startScan } from './devices/actions';
+import * as zeroconfWatchers from './devices/sagas';
 
 const spawnAll = (sagasExport: { [key: string]: Saga }) => Object.values(sagasExport).map(saga => spawn(saga));
 
 function* initSaga() {
-    console.log('Init saga ran');
-    yield put({ type: INIT_ACTION_TYPE });
+    yield put(startScan());
 }
 
 function* debugWatcher() {

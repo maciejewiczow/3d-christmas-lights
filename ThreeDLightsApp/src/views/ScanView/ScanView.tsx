@@ -4,6 +4,6 @@ import { ScanViewWrapper } from './parts';
 
 export const ScanView: React.FC = () => (
     <ScanViewWrapper>
-        <Text>ScanView</Text>
+        <Text>Tu będzie skanowanie ułożenia lampek</Text>
     </ScanViewWrapper>
 );

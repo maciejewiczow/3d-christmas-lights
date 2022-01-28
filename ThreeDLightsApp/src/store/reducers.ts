@@ -1,10 +1,10 @@
 import { combineReducers } from 'redux';
 
 import { AppState } from './constants';
-import { zeroconfReducer } from './zeroconf/reducers';
+import { devicesReducer } from './devices/reducers';
 
 const rootReducer = combineReducers<AppState>({
-    zeroconf: zeroconfReducer,
+    devices: devicesReducer,
 });
 
 export default rootReducer;

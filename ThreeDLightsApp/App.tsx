@@ -1,19 +1,13 @@
 import React from 'react';
-import {
-    SafeAreaView,
-    ScrollView,
-    StatusBar,
-    Text,
-    useColorScheme,
-    View,
-} from 'react-native';
+import { useColorScheme } from 'react-native';
 import { Provider } from 'react-redux';
 import { NavigationContainer } from '@react-navigation/native';
-import { ThemeProvider, useTheme } from 'styled-components/native';
+import { ThemeProvider } from 'styled-components/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import store from '~/src/store';
 import { HomeView, ScanView } from '~/src/views';
-import { darkTheme, lightTheme, Theme } from './theme';
+import { darkTheme, lightTheme } from './theme';
+import { HeaderRight as HomeHeaderRight, HeaderTitle as HomeHeaderTitle } from './src/views/HomeView/HomeView';
 
 export type RootStackParams = {
     Home: undefined;
@@ -38,7 +32,14 @@ const App = () => {
                             },
                         }}
                     >
-                        <Stack.Screen name="Home" component={HomeView} />
+                        <Stack.Screen
+                            name="Home"
+                            component={HomeView}
+                            options={{
+                                headerTitle: HomeHeaderTitle,
+                                headerRight: HomeHeaderRight,
+                            }}
+                        />
                         <Stack.Screen name="Scan" component={ScanView} />
                     </Stack.Navigator>
                 </NavigationContainer>

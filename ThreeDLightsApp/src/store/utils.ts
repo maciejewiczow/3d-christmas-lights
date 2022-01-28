@@ -8,4 +8,3 @@ export const objectHasOwnProperty = (object: unknown, propName: string | number 
 
 export type AsyncRetT<T> = T extends ((...args: any[]) => Promise<infer R>) ? R : never;
 
-export const INIT_ACTION_TYPE = 'initalize';
