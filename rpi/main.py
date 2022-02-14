@@ -4,6 +4,8 @@ from http_main import main as http_main
 import logging
 from os import path, chdir
 
+CONFIG_FILE = './config.json'
+
 def main():
     try:
         chdir(path.dirname(path.realpath(__file__)))
@@ -21,8 +23,8 @@ def main():
 
         connA, connB = Pipe()
 
-        httpProc = Process(target=http_main, args=(connA, httpLogger))
-        lightsProc = Process(target=lights_main, args=(connB, lightsLogger))
+        httpProc = Process(target=http_main, args=(connA, httpLogger, CONFIG_FILE))
+        lightsProc = Process(target=lights_main, args=(connB, lightsLogger, CONFIG_FILE))
 
         httpProc.start()
         mainLog.info("Started http server process with pid=%d", httpProc.pid)

@@ -16,11 +16,9 @@ LED_CHANNEL = 0
 # LED_STRIP = ws.SK6812_STRIP_RGBW
 LED_STRIP = ws.WS2811_STRIP_RGB
 
-def main(conn: Connection, log: Logger):
+def main(conn: Connection, log: Logger, configFilePath: str):
     try:
-        CONFIG_FILE = './config.json'
-
-        with open(CONFIG_FILE) as file:
+        with open(configFilePath) as file:
             config = json.load(file)
 
         LED_COUNT = config['ledCount']
@@ -57,7 +55,7 @@ def main(conn: Connection, log: Logger):
 
                     config['currentEffect'] = effectName
 
-                    with open(CONFIG_FILE, 'w') as f:
+                    with open(configFilePath, 'w') as f:
                         json.dump(config, f)
 
                     break

@@ -1,11 +1,12 @@
 from logging import Logger
 from multiprocessing.connection import Connection
-from flask import Flask, request
+from flask import Flask, request, jsonify
 from flask_restful import Resource, Api
 from glob import glob
 from os import path
+import json
 
-def main(conn: Connection, log: Logger):
+def main(conn: Connection, log: Logger, configFilePath: str):
     try:
         app = Flask(log.name)
         api = Api(app)
@@ -33,10 +34,22 @@ def main(conn: Connection, log: Logger):
 
                 conn.send(effect)
 
-                return None, 200
+                return None, 204
+
+            def post(this):
+                # adding new effect via http
+                raise NotImplementedError
 
         api.add_resource(Effects, "/effects")
-        app.run(host='0.0.0.0')
+
+        @app.route("/effects/current", methods=["GET"])
+        def getCurrent():
+            with open(configFilePath) as file:
+                config = json.load(file)
+
+            return jsonify(config['currentEffect'])
+
+        app.run(host='0.0.0.0', port=80)
     except KeyboardInterrupt:
         log.info("Killed by keyboard interrupt [Ctrl+C]")
     except:
