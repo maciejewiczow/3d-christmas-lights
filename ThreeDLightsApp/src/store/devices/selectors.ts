@@ -5,3 +5,5 @@ export const effects = (deviceId = 0) => (state: AppState) => state.devices.reso
 export const currentEffect = (deviceId = 0) => (state: AppState) => state.devices.resolved.length > deviceId && state.devices.resolved[deviceId].currentEffect;
 
 export const device = (deviceId: number) => (state: AppState) => state.devices.resolved.length > deviceId && state.devices.resolved[deviceId];
+
+export const isScanning = (state: AppState) => state.devices.isScanning;
