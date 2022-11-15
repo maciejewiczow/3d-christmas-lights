@@ -18,17 +18,18 @@ const Stack = createNativeStackNavigator<RootStackParams>();
 
 const App = () => {
     const isDarkMode = useColorScheme() === 'dark';
+    const theme = isDarkMode ? darkTheme : lightTheme;
 
     return (
         <Provider store={store}>
-            <ThemeProvider theme={isDarkMode ? darkTheme : lightTheme}>
+            <ThemeProvider theme={theme}>
                 <NavigationContainer>
                     <Stack.Navigator
                         screenOptions={{
                             animation: 'slide_from_right',
-                            headerTintColor: (isDarkMode ? darkTheme : lightTheme).text,
+                            headerTintColor: theme.text,
                             headerStyle: {
-                                backgroundColor: (isDarkMode ? darkTheme : lightTheme).bgSecondary,
+                                backgroundColor: theme.bgSecondary,
                             },
                         }}
                     >
