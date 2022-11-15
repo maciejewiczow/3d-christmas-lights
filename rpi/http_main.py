@@ -18,15 +18,18 @@ def main(conn: Connection, log: Logger, configFilePath: str):
     except:
         log.exception("An error ocurred!")
 
+def listEffects():
+    files = (path.basename(filePath) for filePath in glob("./effects/*.json"))
+    return [path.splitext(filename)[0] for filename in files if ".template" not in filename]
+
 def routes(app: Flask, conn: Connection, configFilePath: str):
     @app.route("/effects", methods=["GET"])
     def getEffects():
-        files = (path.basename(filePath) for filePath in glob("./effects/*.json"))
-        return jsonify([path.splitext(filename)[0] for filename in files if ".template" not in filename])
+        return jsonify(listEffects())
 
     @app.route("/effects", methods={"PUT"})
     def setCurrent():
-        effects = getEffects()
+        effects = listEffects()
 
         arg = request.get_json()
 
@@ -39,11 +42,11 @@ def routes(app: Flask, conn: Connection, configFilePath: str):
             return jsonify(None), 400
 
         if effect not in effects:
-            return 'Effect not found', 404
+            return jsonify('Effect not found'), 404
 
         conn.send(effect)
 
-        return None, 204
+        return jsonify(None), 204
 
     @app.route("/effects", methods=["POST"])
     def addEffect():
